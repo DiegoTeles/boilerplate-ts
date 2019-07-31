@@ -1,0 +1,116 @@
+
+/* Fonts
+   -------------------------------------------------------------------------- */
+
+@mixin font ($size: null, $height: null, $weight: null, $color: null) {
+    font-size  : $size;
+    line-height: $height;
+    font-weight: $weight;
+    color      : $color;
+}
+
+
+/* Animation
+   -------------------------------------------------------------------------- */
+
+@mixin animation ($name, $time, $loop) {
+    -o-animation     : #{$name} $time #{$loop};
+    -moz-animation   : #{$name} $time #{$loop};
+    -webkit-animation: #{$name} $time #{$loop};
+    animation        : #{$name} $time #{$loop};
+}
+
+
+/* User no select
+   -------------------------------------------------------------------------- */
+
+@mixin no-select () {
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+}
+
+.no-select {
+    @include no-select();
+}
+
+
+/* Text truncate mixin
+   -------------------------------------------------------------------------- */
+
+@mixin truncate () {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text-truncate,
+.truncate-text {
+    @include truncate();
+}
+
+
+/* Wrap Word mixin
+   -------------------------------------------------------------------------- */
+
+@mixin wrap-word () {
+    white-space: -webkit-pre-wrap;   /*Chrome & Safari */
+    white-space: -pre-wrap;          /* Opera 4-6 */
+    white-space: -o-pre-wrap;        /* Opera 7 */
+    white-space: pre-wrap;           /* css-3 */
+    word-wrap: break-word;           /* Internet Explorer 5.5+ */
+    word-break: break-all;
+    white-space: normal;
+}
+
+.wrap-word {
+   @include wrap-word();
+}
+
+
+/* Responsive Utilities
+   -------------------------------------------------------------------------- */
+
+@mixin responsive-visibility () {
+    display: block !important;
+
+    &-inline {
+        display: inline !important;
+
+        &-block {
+            display: inline-block !important;
+        }
+    }
+}
+
+@mixin responsive-invisibility () {
+    display: none !important;
+
+    &-inline {
+        display: none !important;
+
+        &-block {
+            display: none !important;
+        }
+    }
+}
+
+
+/* Keyframe
+   -------------------------------------------------------------------------- */
+
+@mixin keyframe ($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    @-moz-keyframes #{$name} {
+        @content;
+    }
+    @-o-keyframes #{$name} {
+        @content;
+    }
+    @keyframes #{$name} {
+        @content;
+    }
+}
