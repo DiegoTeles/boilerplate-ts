@@ -1,0 +1,95 @@
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+
+import { Alert, Header, Loader } from './components';
+
+import { getUser } from './services/auth';
+
+import { account } from './store/ducks/account/actions';
+import { AppReducerState } from './store/ducks/app/types';
+
+import { ApplicationState, Token } from './models';
+
+import CreateAccount from './views/CreateAccount';
+import Login from './views/Login';
+import EmailVerification from './views/EmailVerification';
+import DepositoSaque from './views/DepositoSaque';
+import Home from './views/Home';
+import ResetPassword from './views/ResetPassword';
+import Dashboard from './views/Dashboard';
+import MeuExtrato from './views/MeuExtrato';
+import UpdatePassword from './views/UpdatePassword';
+import AccountActivity from './views/AccountActivity';
+
+// @ts-ignore
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const isLoggedIn = useSelector(
+    (state: ApplicationState) => state.account.isLoggedIn
+  );
+
+  return (
+    <Route
+      {...rest}
+      render={props =>
+        isLoggedIn ? (
+          <>
+            <Header />
+            <Component {...props} />
+          </>
+        ) : (
+            <Redirect
+              to={{ pathname: '/login', state: { from: props.location } }}
+            />
+          )
+      }
+    />
+  );
+};
+
+const Routes: React.FC = () => {
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(
+    (state: ApplicationState) => state.account.isLoggedIn
+  );
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    dispatch(account(getUser() as Token));
+  }, [dispatch, isLoggedIn]);
+
+  const appStore: AppReducerState = useSelector(
+    (state: ApplicationState) => state.app
+  );
+
+  return (
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact={true} component={Home} />
+          <Route path="/login" component={Login} />
+          <Route path="/esqueci-senha/:token?" component={ResetPassword} />
+          <Route path="/create-account" component={CreateAccount} />
+          <Route
+            path="/email-verification/:token"
+            component={EmailVerification}
+          />
+          <PrivateRoute path="/dashboard" component={Dashboard} />
+          <PrivateRoute path="/depositar-sacar" component={DepositoSaque} />
+          <PrivateRoute path="/meu-extrato" component={MeuExtrato} />
+          <PrivateRoute path="/update-password" component={UpdatePassword} />
+          <PrivateRoute path="/atividade-conta" component={AccountActivity} />
+        </Switch>
+      </BrowserRouter>
+      <Loader visible={appStore.showLoader} />
+      <Alert
+        className={appStore.alertClass ? appStore.alertClass : undefined}
+        visible={appStore.showAlert}
+        text={appStore.alertText}
+      />
+    </>
+  );
+};
+
+export default Routes;
