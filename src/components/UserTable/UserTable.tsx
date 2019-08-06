@@ -1,32 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
-interface StateProps {
+interface StateProps {}
 
-}
-
-interface DispatchProps {
-
-}
+interface DispatchProps {}
 
 type Props = StateProps & DispatchProps;
 
- const UserTable: React.FC<Props> = () => {
-  const [state, setState] = React.useState({  });
+const UserTable: React.FC<Props> = () => {
+  const [state, setState] = React.useState({});
 
-  return (
+  return <div>Tabela</div>;
+};
 
-    <div>Tabela</div>
-    
-  );
-}
+const mapStateToProps = () => ({});
 
-const mapStateToProps = () => ({
+const mapDispatchProps = () => ({});
 
-});
-
-const mapDispatchProps = () => ({
-
-})
-
-export default connect(mapStateToProps, mapDispatchProps)(UserTable)
+export default connect(
+  mapStateToProps,
+  mapDispatchProps
+)(UserTable);

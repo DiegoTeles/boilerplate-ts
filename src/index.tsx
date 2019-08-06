@@ -6,14 +6,9 @@ import store from './store';
 import './index.css';
 
 // import Main from './pages/Main';
-import Users from './pages/Users';
+import App from './App';
 
 /* Styles */
 import './assets/css/app.css';
 
-ReactDOM.render(
-  <Provider store={store}>
-    <Users />
-  </Provider>,
-  document.getElementById('root')
-);
+ReactDOM.render(<App />, document.getElementById('root'));
