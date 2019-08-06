@@ -1,16 +1,15 @@
 import { SystemFeature } from './System';
 
-export interface Group {
-  _id: string
-  name: string
-  system: string
-  description: string
-  roles: string[]
-}
-
 export interface SystemRoles {
-  system: string,
-  systemRoles: string[]
+  system: string;
+  systemRoles?: string;
+}
+export interface Group {
+  _id: string;
+  name: string;
+  system: string;
+  description: string;
+  roles: SystemRoles[];
 }
 
 export interface UserLogin {
@@ -23,7 +22,7 @@ export interface UserLoggedIn {
   name: string;
   username: string;
   email: string;
-  roles: string[];
+  roles: string;
   exp: number;
 }
 
@@ -38,7 +37,6 @@ export interface UserFeature {
   isActive: boolean | undefined;
   systems: SystemFeature[];
 }
-
 
 export interface UserRecover {
   username: string;
