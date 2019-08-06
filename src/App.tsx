@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Routes from './routes';
+import Router from './routes/public';
 import store from './store';
 
 const App: React.FC = () => (
   <Provider store={store}>
-    <Routes />
+    <Router />
   </Provider>
 );
 

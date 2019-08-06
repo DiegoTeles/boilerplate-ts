@@ -21,7 +21,9 @@ function isAuth(): Boolean {
     ) {
       return true;
     }
-  } catch (e) {}
+  } catch (e) {
+    console.log('Error: ' , e)
+  }
 
   return false;
 }

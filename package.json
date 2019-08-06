@@ -30,7 +30,7 @@
 		"typescript": "3.5.3"
 	},
 	"scripts": {
-		"start": "react-scripts start",
+		"start": "concurrently --kill-others \"npm run sass\" \"npm run local\"",
 		"local": "npm run sass:build && HTTPS=true react-scripts start",
 		"build": "npm run sass:build && react-scripts build",
 		"test": "react-scripts test",
